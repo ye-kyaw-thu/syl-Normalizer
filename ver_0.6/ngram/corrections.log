@@ -1,0 +1,85 @@
+line      1 | 'ဖြ င့်'                       -> 'ဖြင့်'                        | stage3:merge_with_previous
+line      1 | 'နှ င့်'                       -> 'နှင့်'                        | stage3:merge_with_previous
+line      1 | '၇ည်'                          -> 'ရည်'                          | stage2:ngram(ngram_char_sub)
+line      1 | 'နှ င့်'                       -> 'နှင့်'                        | stage3:merge_with_previous
+line      1 | 'ပြ ည့်'                       -> 'ပြည့်'                        | stage3:merge_with_previous
+line      2 | 'နန္ဓ'                         -> 'နန္ဒ'                         | stage2:ngram(ngram_char_sub)
+line      3 | 'ယွာ'                          -> 'ရွာ'                          | stage2:ngram(ngram_char_sub)
+line      4 | 'သမ္ဗုဒ္ဒေ'                    -> 'သမ္ဗုဒ္ဓေ'                    | stage2:ngram(ngram_char_sub)
+line      5 | 'ရျင်'                         -> 'လျင်'                         | stage2:ngram(ngram_char_sub)
+line      5 | 'ရျင်း'                        -> 'လျင်း'                        | stage2:ngram(ngram_char_sub)
+line      6 | '၇ှင်း'                        -> 'ရှင်း'                        | stage2:ngram(ngram_char_sub)
+line      7 | 'တက်ဖ်'                        -> 'တက် ဖ်'                       | stage4:split(2 parts)
+line      7 | 'ပာ'                           -> 'ပါ'                           | stage2:ngram(ngram_char_sub)
+line      8 | 'ဗျဉ်း'                        -> 'ဗျည်း'                        | stage2:ngram(ngram_char_sub)
+line      8 | 'နှ င့်'                       -> 'နှင့်'                        | stage3:merge_with_previous
+line      8 | 'နှ င့်'                       -> 'နှင့်'                        | stage3:merge_with_previous
+line      8 | 'သ ည့်'                        -> 'သည့်'                         | stage3:merge_with_previous
+line      9 | 'မှု န့်'                      -> 'မှုန့်'                       | stage3:merge_with_previous
+line      9 | 'ညွ န့်'                       -> 'ညွန့်'                        | stage3:merge_with_previous
+line      9 | 'ယှိ'                          -> 'ရှိ'                          | stage2:ngram(ngram_char_sub)
+line      9 | 'နှ င့်'                       -> 'နှင့်'                        | stage3:merge_with_previous
+line      9 | 'ဖြ င့်'                       -> 'ဖြင့်'                        | stage3:merge_with_previous
+line      9 | 'ဆ န့်'                        -> 'ဆန့်'                         | stage3:merge_with_previous
+line      9 | 'ပြ ည့်'                       -> 'ပြည့်'                        | stage3:merge_with_previous
+line      9 | 'သ ည့်'                        -> 'သည့်'                         | stage3:merge_with_previous
+line      9 | 'တ ည့်'                        -> 'တည့်'                         | stage3:merge_with_previous
+line      9 | 'စိ မ့်'                       -> 'စိမ့်'                        | stage3:merge_with_previous
+line     10 | 'ခန္တာ'                        -> 'ခန္ဓာ'                        | stage2:ngram(ngram_char_sub)
+line     11 | '၇ှူ'                          -> 'ရှူ'                          | stage2:ngram(ngram_char_sub)
+line     12 | 'ဖြ င့်'                       -> 'ဖြင့်'                        | stage3:merge_with_previous
+line     12 | 'ဗုဒ္ဒ'                        -> 'ဗုဒ္ဓ'                        | stage2:ngram(ngram_char_sub)
+line     12 | 'ပြ န့်'                       -> 'ပြန့်'                        | stage3:merge_with_previous
+line     12 | 'ပြ န့်'                       -> 'ပြန့်'                        | stage3:merge_with_previous
+line     12 | 'မ ည့်'                        -> 'မည့်'                         | stage3:merge_with_previous
+line     12 | 'ပြ န့်'                       -> 'ပြန့်'                        | stage3:merge_with_previous
+line     13 | 'ပြေါင်း'                      -> 'ပြောင်း'                      | stage2:ngram(ngram_char_sub)
+line     13 | 'ပြေါင်း'                      -> 'ပြောင်း'                      | stage2:ngram(ngram_char_sub)
+line     14 | 'ဆ ယ့်'                        -> 'ဆယ့်'                         | stage3:merge_with_previous
+line     14 | 'သ ည့်'                        -> 'သည့်'                         | stage3:merge_with_previous
+line     14 | 'ကျမ်'                         -> 'ကျယ်'                         | stage2:ngram(ngram_char_sub)
+line     15 | 'နှ င့်'                       -> 'နှင့်'                        | stage3:merge_with_previous
+line     15 | 'ဟင်္သါ'                       -> 'ဟင်္သာ'                       | stage2:ngram(ngram_char_sub)
+line     16 | 'နှ င့်'                       -> 'နှင့်'                        | stage3:merge_with_previous
+line     16 | 'နှ င့်'                       -> 'နှင့်'                        | stage3:merge_with_previous
+line     16 | 'သိက္ခါ'                       -> 'သိက္ခာ'                       | stage2:ngram(ngram_char_sub)
+line     17 | 'ဂျိတ်'                        -> 'ချိတ်'                        | stage2:ngram(ngram_char_sub)
+line     18 | 'ဗေါင်း'                       -> 'ဗောင်း'                       | stage2:ngram(ngram_char_sub)
+line     18 | 'သ ည့်'                        -> 'သည့်'                         | stage3:merge_with_previous
+line     19 | 'မေတ္ထာ'                       -> 'မေတ္တာ'                       | stage2:ngram(ngram_char_sub)
+line     20 | 'စော င့်'                      -> 'စောင့်'                       | stage3:merge_with_previous
+line     20 | 'ဌါန်'                         -> 'ဌာန်'                         | stage2:ngram(ngram_char_sub)
+line     21 | 'ပေက္ခါ'                       -> 'ပေက္ခာ'                       | stage2:ngram(ngram_char_sub)
+line     21 | 'နှ င့်'                       -> 'နှင့်'                        | stage3:merge_with_previous
+line     21 | 'ဆ န့်'                        -> 'ဆန့်'                         | stage3:merge_with_previous
+line     22 | 'သ ည့်'                        -> 'သည့်'                         | stage3:merge_with_previous
+line     22 | 'ဿါ'                           -> 'ဿာ'                           | stage2:ngram(ngram_char_sub)
+line     23 | '၇က်'                          -> 'ရက်'                          | stage2:ngram(ngram_char_sub)
+line     24 | 'နှ င့်'                       -> 'နှင့်'                        | stage3:merge_with_previous
+line     24 | 'ဉွန်'                         -> 'ညွန်'                         | stage2:ngram(ngram_char_sub)
+line     24 | 'နှ င့်'                       -> 'နှင့်'                        | stage3:merge_with_previous
+line     24 | 'သ ည့်'                        -> 'သည့်'                         | stage3:merge_with_previous
+line     25 | 'လာ်း'                         -> 'လား'                          | stage2:ngram(ngram_asat_removal)
+line     26 | 'အထ္ထုပ္ပတ္တိ'                 -> 'အတ္ထုပ္ပတ္တိ'                 | stage2:ngram(ngram_char_sub)
+line     27 | 'ခန္ဒီ'                        -> 'ဂန္ဒီ'                        | stage2:ngram(ngram_char_sub)
+line     28 | 'ဒာ'                           -> 'ဒါ'                           | stage2:ngram(ngram_char_sub)
+line     29 | 'ငွန်း'                        -> 'ဆွန်း'                        | stage2:ngram(ngram_char_sub)
+line     30 | 'မို်း'                        -> 'မိုး'                         | stage2:ngram(ngram_asat_removal)
+line     31 | 'မို်း'                        -> 'မိုး'                         | stage2:ngram(ngram_asat_removal)
+line     32 | 'ကျာ်း'                        -> 'ကျား'                         | stage2:ngram(ngram_asat_removal)
+line     33 | 'ကျာ်း'                        -> 'ကျား'                         | stage2:ngram(ngram_asat_removal)
+line     34 | 'မေ်း'                         -> 'မေး'                          | stage2:ngram(ngram_asat_removal)
+line     35 | 'ခြာ်း'                        -> 'ခြား'                         | stage2:ngram(ngram_asat_removal)
+line     35 | 'မ ယ့်'                        -> 'မယ့်'                         | stage3:merge_with_previous
+line     36 | 'ရီ်း'                         -> 'ရီး'                          | stage2:ngram(ngram_asat_removal)
+line     37 | 'နို်း'                        -> 'နိုး'                         | stage2:ngram(ngram_asat_removal)
+line     37 | 'သ ည့်'                        -> 'သည့်'                         | stage3:merge_with_previous
+line     37 | 'ညွ န့်'                       -> 'ညွန့်'                        | stage3:merge_with_previous
+line     38 | 'လာ်း'                         -> 'လား'                          | stage2:ngram(ngram_asat_removal)
+line     39 | 'ဦ်း'                          -> 'ဦး'                           | stage2:ngram(ngram_asat_removal)
+line     40 | 'ကြီ်း'                        -> 'ကြီး'                         | stage2:ngram(ngram_asat_removal)
+line     41 | 'နှေ်း'                        -> 'နှေး'                         | stage2:ngram(ngram_asat_removal)
+line     42 | 'ဆ င့်'                        -> 'ဆင့်'                         | stage3:merge_with_previous
+line     42 | 'နှ င့်'                       -> 'နှင့်'                        | stage3:merge_with_previous
+line     42 | 'ရို်း'                        -> 'ရိုး'                         | stage2:ngram(ngram_asat_removal)
+line     43 | 'မူ်း'                         -> 'မူး'                          | stage2:ngram(ngram_asat_removal)
