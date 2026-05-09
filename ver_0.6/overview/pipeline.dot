@@ -1,0 +1,148 @@
+digraph SylNormalizer {
+    // Graph Settings
+    rankdir=TB;
+    fontname="Helvetica";
+    fontsize=12;
+    node [fontname="Helvetica", fontsize=10, style="filled"];
+    edge [fontname="Helvetica", fontsize=9];
+    compound=true;
+
+    // Node Shapes
+    node [shape=box, fillcolor="#f9f9f9", color="#333333"];
+    
+    // Start / End
+    start [label="Input: Raw Token", shape=ellipse, fillcolor="#e0f7fa", color="#006064"];
+    end [label="Output: Final Token", shape=ellipse, fillcolor="#e8f5e9", color="#1b5e20"];
+    output_asis [label="Output As-Is\n(Count as Unknown)", shape=ellipse, fillcolor="#ffebee", color="#b71c1c"];
+
+    // --------------------------------------------------------
+    // Stage 0: Pre-processing
+    // --------------------------------------------------------
+    subgraph cluster_stage0 {
+        label="Stage 0: Pre-processing";
+        style=dashed;
+        color="#90a4ae";
+        penwidth=1.5;
+
+        is_passthrough [label="Is Non-Myanmar,\nLatin, or Digits?", shape=diamond, fillcolor="#fff3e0", color="#e65100"];
+        nfc_norm [label="Unicode NFC\nNormalization", fillcolor="#fff3e0"];
+    }
+
+    // --------------------------------------------------------
+    // Stage 1: Regex Rules
+    // --------------------------------------------------------
+    subgraph cluster_stage1 {
+        label="Stage 1: Regex Rule Corrections";
+        style=dashed;
+        color="#42a5f5";
+        penwidth=1.5;
+
+        rule_norm [label="Iterative Regex Subs\n(Max 3 Passes)\n(e.g., Medial order, Vowel fixes,\nAsat+Dot order, Confused digits)", fillcolor="#e3f2fd"];
+    }
+
+    // --------------------------------------------------------
+    // Dictionary Check
+    // --------------------------------------------------------
+    dict_check [label="Valid in\nSyllable Dictionary?", shape=diamond, fillcolor="#e8f5e9", color="#2e7d32"];
+
+    // --------------------------------------------------------
+    // Stage 2: Fuzzy Correction
+    // --------------------------------------------------------
+    subgraph cluster_stage2 {
+        label="Stage 2: Fuzzy Correction";
+        style=dashed;
+        color="#ab47bc";
+        penwidth=1.5;
+
+        fuzzy_mode [label="Which Fuzzy\nMode Active?", shape=diamond, fillcolor="#f3e5f5", color="#6a1b9a"];
+        
+        // Candidate Generation (Shared concept)
+        gen_cand [label="Generate Candidates:\n1. Dup Vowel Removal\n2. Asat Removal\n3. Confused Char Sub\n4. Medial Ordering Fix\n5. Combined (Dup+Asat)", fillcolor="#ede7f6"];
+
+        // Branch A: N-gram LM
+        ngram_filter [label="Filter: Keep ONLY\ncandidates in Dictionary", fillcolor="#e1bee7"];
+        ngram_score [label="Score Candidates with\nARPA N-gram LM (Context)\nusing Katz Backoff", fillcolor="#e1bee7"];
+        ngram_accept [label="Accept if Candidate Score\n> Original Score +\nmin_lm_improve", shape=diamond, fillcolor="#ce93d8", color="#4a148c"];
+
+        // Branch B: Dict-based
+        dict_accept [label="Accept First Valid\nCandidate Found\nin Dictionary", shape=diamond, fillcolor="#ce93d8", color="#4a148c"];
+        
+        fuzzy_disabled [label="Fuzzy Disabled\n(--fuzzy-distance 0\nand no --ngram-lm)", shape=box, fillcolor="#f3e5f5", style=dotted];
+    }
+
+    // --------------------------------------------------------
+    // Stage 3: Merge
+    // --------------------------------------------------------
+    subgraph cluster_stage3 {
+        label="Stage 3: Consonant+Asat Merge";
+        style=dashed;
+        color="#ffa726";
+        penwidth=1.5;
+
+        is_asat [label="Is Consonant\n+ Asat (်)?", shape=diamond, fillcolor="#fff3e0", color="#e65100"];
+        try_merge [label="Merge with Previous Token\n& Check Dictionary", fillcolor="#ffe0b2"];
+    }
+
+    // --------------------------------------------------------
+    // Stage 4: Split
+    // --------------------------------------------------------
+    subgraph cluster_stage4 {
+        label="Stage 4: Compound Syllable Splitting";
+        style=dashed;
+        color="#ef5350";
+        penwidth=1.5;
+
+        len_check [label="Token Length\n>= 4?", shape=diamond, fillcolor="#ffcdd2", color="#c62828"];
+        dp_split [label="Dynamic Programming Split\n(Max 3 Parts)\nCheck parts in Dictionary", fillcolor="#ef9a9a"];
+    }
+
+    // --------------------------------------------------------
+    // EDGES (Flow)
+    // --------------------------------------------------------
+    
+    // Stage 0
+    start -> is_passthrough;
+    is_passthrough -> end [label="Yes (Passthrough)"];
+    is_passthrough -> nfc_norm [label="No"];
+    nfc_norm -> rule_norm;
+
+    // Stage 1
+    rule_norm -> dict_check;
+
+    // Dictionary Check
+    dict_check -> end [label="Yes (Valid)"];
+    dict_check -> fuzzy_mode [label="No (Unknown)"];
+
+    // Stage 2 Routing
+    fuzzy_mode -> gen_cand [label="N-gram LM\nEnabled"];
+    fuzzy_mode -> gen_cand [label="Dict-based\nEnabled"];
+    fuzzy_mode -> fuzzy_disabled [label="Disabled"];
+    fuzzy_disabled -> is_asat;
+
+    // N-gram path
+    gen_cand -> ngram_filter [label="(N-gram path)"];
+    ngram_filter -> ngram_score;
+    ngram_score -> ngram_accept;
+    ngram_accept -> end [label="Yes (Corrected)"];
+    ngram_accept -> is_asat [label="No / Fail"];
+
+    // Dict-based path
+    gen_cand -> dict_accept [label="(Dict path)"];
+    dict_accept -> end [label="Yes (Corrected)"];
+    dict_accept -> is_asat [label="No / Fail"];
+
+    // Stage 3
+    is_asat -> try_merge [label="Yes"];
+    is_asat -> len_check [label="No"];
+    try_merge -> end [label="Yes (Replaces\nPrevious Token)"];
+    try_merge -> len_check [label="No"];
+
+    // Stage 4
+    len_check -> dp_split [label="Yes"];
+    len_check -> output_asis [label="No"];
+    dp_split -> end [label="Yes (Output\nMultiple Tokens)"];
+    dp_split -> output_asis [label="No"];
+
+    // Final fallback
+    output_asis -> end [style=dotted, label="Appended to output"];
+}
