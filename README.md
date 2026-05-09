@@ -19,7 +19,8 @@ The normalizer operates through a 5-stage process to ensure linguistic accuracy 
 5. **Stage 4: Compound Splitting** – Uses Dynamic Programming to split compound syllables into valid sub-parts (up to 3 parts).
 
 <p align="center">
-<img src="https://github.com/ye-kyaw-thu/syl-Normalizer/blob/main/ver_0.6/overview/pipeline.png" alt="pipeline of syllable normalizer" width="800">  
+<img src="https://github.com/ye-kyaw-thu/syl-Normalizer/blob/main/ver_0.6/overview/pipeline.png" alt="pipeline of syllable normalizer" width="600">  
+Fig. Overview of Syllable Normalizer (version 0.6)  
 </p>
 
 ---
